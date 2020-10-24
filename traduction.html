@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+    <meta charset="UTF-8">
+    <head>
+        <title>Drang & Drop</title>
+        <style>
+            #tranche_a
+            {
+                display: inline-block;
+               
+            }
+            .en
+            {
+                display: inline-block;
+                height: 50px;
+                width: 200px;
+                padding: 20px;
+                margin: 85px;
+                border:2px solid red; 
+            }
+            #tranche_b
+            {
+                display: inline-block;
+               
+            }
+            body
+            {
+                margin: 0;
+                padding: 0;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+          
+            .fr
+            {
+                display: inline-block;
+                height: 50px;
+                width: 200px;
+                border:2px solid brown;
+                padding: 20px;
+                margin: 85px;
+            }
+            .timer_t
+            {
+                color: #fff;
+                background-color: black;
+                height: 20px;
+                width: 100px;
+                margin: 40px;
+                padding: 40px;
+            }
+          
+           
+        </style>
+        
+    </head>
+    <body >
+
+            <!--pour les couleurs-->
+<div id="tranche_a">
+            <div class="fr" id="red" draggable="true" ondragstart="copier(event)">
+
+            </div>
+
+            <div class="fr" id="orange" draggable="true" ondragstart="copier(event)">
+
+            </div>
+
+
+            <div class="fr" id="brown" draggable="true" ondragstart="copier(event)">
+
+            </div>
+</div>
+
+            <!--pour les photo-->
+            <div id="tranche_b">
+            <div class="en" id="photoa" ondrop="coller(event)"  ondragover="droitcoller()">
+            
+            </div>
+
+            <div class="en" id="photob" ondrop="coller(event)"  ondragover="droitcoller()">
+             
+            </div>
+
+            <div class="en" id="photoc" ondrop="coller(event)"  ondragover="droitcoller()">
+           
+            </div>
+</div>
+        <button type="button" onclick="inisialiser()">Inisialiser</button>
+        <button type="button" onclick="verifier()">Vérifier</button>
+          <br><br>
+              <h4>Your time is limeted so attention gays and good luck</h4>
+
+                 <h5 id="timer" class="timer_t"></h5>
+            
+          <br>
+
+
+       
+       <script>
+            var array1=["Car","Room","Home"];
+                var array2=["Voiture","Chambre","Maison"];
+           function inisialiser()
+           {
+               
+        var x=setInterval(function()
+        {
+            document.getElementById('timer').innerHTML=" "+time+" "+"Secondes";
+            time--;
+            if(time<0)
+            {
+                
+                clearInterval(x);
+                alert('Stped this operation');
+               // document.getElementById('timer').innerHTML="Stoped this operation !";
+                
+            }
+        },1000);
+                var teg=document.getElementsByClassName('en');
+                var tfr=document.getElementsByClassName('fr');
+               
+                //le premier div
+                for(var i=0;i<array1.length;i++)
+                {
+                    tfr[i].innerHTML=array1[i];
+                }
+                
+                //le deuxieme div
+                for(var i=0;i<array2.length;i++)
+                {
+                teg[i].innerHTML=array2[i];
+                }
+    
+           }
+
+           function copier(e)
+           {
+               e.dataTransfer.setData("text",e.target.innerHTML);
+
+           }
+           function droitcoller()
+           {
+               event.preventDefault();
+
+           }
+           function coller(e)
+           {
+               var l=e.dataTransfer.getData("text");
+               e.target.id=e.target.innerHTML;
+               e.target.innerHTML=l;
+              //e.target.parentNode.replaceChild(document.getElementById(l),e.target);
+           }
+
+           function verifier()
+           {
+
+            var teg=document.getElementsByClassName('en');
+            for(var i=0;i<teg.length;i++)
+                {
+                    if(teg[i].innerHTML !== array1[array2.indexOf(teg[i].id)])
+                    { 
+                       alert('perdu');
+                       return;
+                    }
+                }
+                     alert("gagné");     
+           }
+
+           //function timer
+           var eng=document.getElementsByClassName('en');
+               
+        var time=10;
+      
+           
+
+       </script>
+    </body>
+</html>
